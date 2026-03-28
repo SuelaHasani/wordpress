@@ -51,4 +51,24 @@ function ds_setup() {
 
 add_action('init', 'ds_setup');
 
+function ds_add_bootstrap_cdn() {
+    wp_enqueue_style(
+        'bootsrap-css',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+        array(),
+        '4.6.2',
+        'all'
+    );
+
+    wp_enqueue_script(
+        'bootsrap-js',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js',
+        array(),
+        '4.6.2',
+        true
+    );
+}
+
+add_action('wp_enqueue_scripts','ds_add_bootstrap_cdn')
+
 ?>
