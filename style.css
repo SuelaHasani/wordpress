@@ -1,19 +1,9 @@
-/*
-Theme Name: DS Theme
-Theme URI: https://digitalschool.com
-Author: Digital School
-Author URI: https://digitalschool.com
-Description: A basic custom theme for learning purposes.
-Version: 1.0
-License: GNU General Public License v2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: ds-theme
-Tags: education, basic-theme
-*/
 
-/* Basic styling */
+
+
 
 body {
+
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -40,4 +30,73 @@ article {
   margin: 20px 0;
   background: #fff;
   border: 1px solid #ddd;
+}
+
+/* Lajme (News) professional styling */
+.lajme-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.lajme-header h1 {
+    font-size: 2rem;
+    margin: 0 0 6px;
+    color: #222;
+}
+.lajme-header .lead {
+    color: #666;
+    margin-bottom: 20px;
+}
+.lajme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+.lajme-item {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+    box-shadow: 0 6px 18px rgba(15,15,15,0.06);
+}
+.lajme-thumb img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+.lajme-body {
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.lajme-title {
+    font-size: 1.125rem;
+    margin: 0 0 8px;
+}
+.lajme-title a {
+    color: #111;
+    text-decoration: none;
+}
+.lajme-title a:hover { color: #0073aa; text-decoration: underline; }
+.lajme-meta { font-size: 0.875rem; color: #888; margin-bottom: 12px; }
+.lajme-excerpt { color: #444; flex: 1; margin-bottom: 12px; }
+.lajme-readmore {
+    align-self: flex-start;
+    background: #0073aa;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+}
+.lajme-readmore:hover { background: #005f8a; }
+
+@media (max-width: 480px) {
+    .lajme-thumb img { height: 140px; }
+    .lajme-body { padding: 12px; }
 }
