@@ -2,7 +2,7 @@
 
 function ds_theme_assets() {
 
-    // Main stylesheet
+ 
     wp_enqueue_style(
         'ds-style',
         get_stylesheet_uri(),
@@ -11,7 +11,7 @@ function ds_theme_assets() {
         'all'
     );
 
-    // Additional CSS example
+  
     wp_enqueue_style(
         'slider-style',
         get_template_directory_uri() . '/css/slider.css',
@@ -20,7 +20,7 @@ function ds_theme_assets() {
         'all'
     );
 
-    // Custom JS
+   
     wp_enqueue_script(
         'ds-script',
         get_template_directory_uri() . '/js/custom.js',
@@ -29,7 +29,7 @@ function ds_theme_assets() {
         true
     );
 
-    // Comment reply script
+ 
     if ( is_singular() && comments_open() && get_option('thread_comments') ) {
         wp_enqueue_script('comment-reply');
     }
@@ -41,34 +41,103 @@ add_action('wp_enqueue_scripts', 'ds_theme_assets');
 
 function ds_setup() {
 
-    // Enable menu support
     add_theme_support('menus');
 
-    // Register primary menu
+   
     register_nav_menu('primary', 'Primary Menu');
 
 }
 
 add_action('init', 'ds_setup');
 
+function ds_theme_setup() {
+    add_theme_support('post-thumbnails');
+
+    add_theme_support('post-formats', array('aside', 'image', 'video'));
+
+    add_theme_support('title-tag');
+}
+add_action('after_setup_theme', 'ds_theme_setup');
+
+;
+
 function ds_add_bootstrap_cdn() {
+
+    
     wp_enqueue_style(
-        'bootsrap-css',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css',
+        'bootstrap-css',
+        'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css',
         array(),
         '4.6.2',
         'all'
     );
 
     wp_enqueue_script(
-        'bootsrap-js',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js',
-        array(),
+        'bootstrap-js',
+        'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js',
+        array('jquery'),
         '4.6.2',
         true
     );
 }
 
-add_action('wp_enqueue_scripts','ds_add_bootstrap_cdn')
+add_action('wp_enqueue_scripts', 'ds_add_bootstrap_cdn');
+
+
+
+function themename_widgets_init(){
+    register_sidebar(array(
+        'name'              => __('Primary Sidebar','theme_name'),
+        'id'                => 'sidebar-1',
+        'before_widget'     =>'<aside id="%1$s" class="widget %2$s">',
+        'after_widget'      => '</aside>',
+        'before_title'      =>'<h3 class="widget-title">',
+        'after_title'       => '</h3>'
+    ));
+}
+add_action('widgets_init','themename_widgets_init');
+
+
+class Foo_Widget extends WP_Widget{
+
+
+
+    public function __construct(){
+        parent::__construct(
+            'foo_widget',
+            'A foo Widget'
+        );
+    }
+
+
+    public function widget($args, $instance){
+        echo $args['before_widget'];
+         echo '<p> hello world </p>';
+         echo '<p> hello grupiii 1 D </p>';
+         echo $args['after_widget'];
+
+
+    }
+    public function form($instance){
+        echo '<p> no options yet</p>';
+
+
+    }
+    public function update($new_instance,$old_instance){
+        return $new_instance;
+    }
+}
+
+
+function register_foo_widget(){
+    register_widget('Foo_Widget');
+}
+
+
+add_action('widgets_init','register_foo_widget');
+
+add_action('widgets_init', 'register_foo_widget');
+
+
 
 ?>

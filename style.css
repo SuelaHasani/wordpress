@@ -35,3 +35,9 @@ footer {
     padding: 20px;
     text-align: center;
 }
+article {
+  padding: 20px;
+  margin: 20px 0;
+  background: #fff;
+  border: 1px solid #ddd;
+}

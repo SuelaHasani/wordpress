@@ -1,6 +1,8 @@
-<article <?php post_class();?>>
+<article <?php post_class(); ?>>
 
-<h2> <?php the_title();?></h2>
-<?php the_content();?>
+  <?php if ( has_post_thumbnail() ) : ?>
+    <?php the_post_thumbnail('medium'); ?>
+  <?php endif; ?>
 
+  <h2><?php the_title(); ?></h2>
 </article>
