@@ -100,3 +100,56 @@ article {
     border-radius:10px;
     box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+h1, h2 {
+    color: #111;
+}
+
+a {
+    color: #0073aa;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #005177;
+    text-decoration: underline;
+}
+
+article {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+article:last-child {
+    border-bottom: none;
+}
+
+.movie-thumbnail {
+    margin: 15px 0;
+}
+
+.movie-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+.wp-post-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}

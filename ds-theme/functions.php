@@ -128,39 +128,97 @@ function register_foo_widget() {
     register_widget( 'Foo_Widget' );
 }
 add_action( 'widgets_init', 'register_foo_widget' );
-function our_coustum_movie() {
-   $labels= array ( 
-     'name'                 => _x('Movies', 'post type general name'),
-     'singular_name'        => _x('Movie', 'post type singular name'),
-     'add_new'              => _x('Add New', 'movie'),
-     'add_new_item'         => _('Add New movie'),
-     'edit_item'            => _('Edit movie'),
-     'new_item'             => _('New movie'),
-     'all_item'             => _('All movie'),
-     'view_item'            => _('View movie'),
-     'search_items'         => _('Search movie'),
-     'not_found'            => _('No movies found'),
-     'not_found_in_trash'   => _('No movies found in trash'),
-     'parent_item_colon'    => '',
-     'menu_name'            => 'Movies'
 
-   );
 
-   $args = array (
-    'labels'                =>$labels, 
-    'descriptipon'          =>'Movies and single movie details',
-    'public'                =>true,
-    'publicly_queryable'    =>true,
-    'menu_position'         =>5,
-    'supports'              =>array('title','editor','thumbnail','excerpt','comments'),
-    'has_archive'           =>true,
-    'rewrite'               =>array('slug'=>'movies'),
-    'show_in_rest'          =>true  
 
-   ); 
 
-   register_post_type('movies',$args);
-   
+
+function my_limit_posts_on_index($query) {
+    if ( !is_admin() && $query->is_main_query() && is_home() ) {
+        $query->set('posts_per_page', 5);
+    }
 }
-add_action('init','our_coustum_movie');
+add_action('pre_get_posts', 'my_limit_posts_on_index');
+
+
+
+
+
+function our_custom_movie() {
+    $labels = array(
+        'name'               => _x( 'Movies', 'post type general name' ),
+        'singular_name'      => _x( 'Movie', 'post type singular name' ),
+        'add_new'            => _x( 'Add New', 'movie' ),
+        'add_new_item'       => __( 'Add New Movie' ),
+        'edit_item'          => __( 'Edit Movie' ),
+        'new_item'           => __( 'New Movie' ),
+        'all_items'          => __( 'All Movies' ),
+        'view_item'          => __( 'View Movie' ),
+        'search_items'       => __( 'Search Movies' ),
+        'not_found'          => __( 'No movies found' ),
+        'not_found_in_trash' => __( 'No movies found in the Trash' ),
+        'parent_item_colon'  => '',
+        'menu_name'          => 'Movies'
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'description'        => 'Movies and single movie details',
+        'public'             => true,
+        'publicly_queryable' => true,
+        'menu_position'      => 5,
+        'supports'           => array( 'title', 'editor', 'thumbnail', 'excerpt', 'comments' ),
+        'has_archive'        => true,
+        'rewrite'            => array( 'slug' => 'movies' ),
+        'show_in_rest'       => true
+    );
+
+    register_post_type( 'movies', $args );
+}
+
+add_action( 'init', 'our_custom_movie' );
+
+
+
+
+function register_taxonomy_movie_genres() {
+
+    $labels = array(
+        'name'              => _x('Movie genres', 'taxonomy general name'),
+        'singular_name'     => _x('Movie genre', 'taxonomy singular name'),
+        'search_items'      => __('Search Movie genre'),
+        'all_items'         => __('All Movie genre'),
+        'parent_item'       => __('Parent Movie genre'),
+        'parent_item_colon' => __('Parent Movie genre:'),
+        'edit_item'         => __('Edit Movie genre'),
+        'update_item'       => __('Update Movie genre'),
+        'add_new_item'      => __('Add New Movie genre'),
+        'new_item_name'     => __('New Movie genre Name'),
+        'menu_name'         => __('Movie genre'),
+    );
+
+    $args = array(
+        'hierarchical'      => true,
+        'labels'            => $labels,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'query_var'         => true,
+        'show_in_rest'      => true,
+        'rewrite'           => array('slug' => 'movie_genre'),
+    );
+
+    register_taxonomy('movie_genres', array('movies'), $args);
+
+    register_taxonomy('movietags', 'movies', array(
+        'label'             => 'Movie tags',
+        'rewrite'           => array('slug' => 'movie_tags'),
+        'hierarchical'      => false,
+        'show_ui'           => true,
+        'show_admin_column' => true,
+        'show_in_rest'      => true,
+    ));
+}
+
+add_action('init', 'register_taxonomy_movie_genres');
+
 ?>
